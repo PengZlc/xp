@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaao.ps10.base.mapper.UserTableMapper">
+  <resultMap id="BaseResultMap" type="com.yaao.ps10.base.model.UserTable">
+    <id column="MemberID" jdbcType="INTEGER" property="memberid" />
+    <result column="LogName" jdbcType="VARCHAR" property="logname" />
+    <result column="UserName" jdbcType="VARCHAR" property="username" />
+    <result column="DepartmentID" jdbcType="INTEGER" property="departmentid" />
+    <result column="MaintFlag" jdbcType="INTEGER" property="maintflag" />
+    <result column="OndutyFlag" jdbcType="INTEGER" property="ondutyflag" />
+    <result column="RoleID" jdbcType="INTEGER" property="roleid" />
+    <result column="SRoleID" jdbcType="INTEGER" property="sroleid" />
+    <result column="TRoleID" jdbcType="INTEGER" property="troleid" />
+    <result column="CardCode" jdbcType="INTEGER" property="cardcode" />
+    <result column="Telphone" jdbcType="VARCHAR" property="telphone" />
+    <result column="ValidFlag" jdbcType="SMALLINT" property="validflag" />
+    <result column="Sex" jdbcType="SMALLINT" property="sex" />
+    <result column="Pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="AvailTime" jdbcType="INTEGER" property="availtime" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="Dsc" jdbcType="VARCHAR" property="dsc" />
+    <result column="PicPath" jdbcType="VARCHAR" property="picpath" />
+    <result column="JobNum" jdbcType="VARCHAR" property="jobnum" />
+    <result column="GroupNum" jdbcType="VARCHAR" property="groupnum" />
+    <result column="deptid2" jdbcType="INTEGER" property="deptid2" />
+    <result column="deptid3" jdbcType="INTEGER" property="deptid3" />
+    <result column="RoleName" jdbcType="VARCHAR" property="roleName" />
+    <result column="DepartmentName" jdbcType="VARCHAR" property="departmentName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    MemberID, LogName, UserName, DepartmentID, MaintFlag, OndutyFlag, RoleID, SRoleID, 
+    TRoleID, CardCode, Telphone, ValidFlag, Sex, Pwd, AvailTime, UpdateTime, Email, Dsc, 
+    PicPath, JobNum, GroupNum, deptid2, deptid3,RoleName,DepartmentName
+  </sql>
+  <select id="selectByExample" parameterType="com.yaao.ps10.base.model.UserTableExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PSBaseDb.dbo.UserTable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PSBaseDb.dbo.UserTable
+    where MemberID = #{memberid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from PSBaseDb.dbo.UserTable
+    where MemberID = #{memberid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yaao.ps10.base.model.UserTableExample">
+    delete from PSBaseDb.dbo.UserTable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yaao.ps10.base.model.UserTable">
+    insert into PSBaseDb.dbo.UserTable (MemberID, LogName, UserName,
+      DepartmentID, MaintFlag, OndutyFlag, 
+      RoleID, SRoleID, TRoleID, 
+      CardCode, Telphone, ValidFlag, 
+      Sex, Pwd, AvailTime, 
+      UpdateTime, Email, Dsc, 
+      PicPath, JobNum, GroupNum, 
+      deptid2, deptid3)
+    values (#{memberid,jdbcType=INTEGER}, #{logname,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{departmentid,jdbcType=INTEGER}, #{maintflag,jdbcType=INTEGER}, #{ondutyflag,jdbcType=INTEGER}, 
+      #{roleid,jdbcType=INTEGER}, #{sroleid,jdbcType=INTEGER}, #{troleid,jdbcType=INTEGER}, 
+      #{cardcode,jdbcType=INTEGER}, #{telphone,jdbcType=VARCHAR}, #{validflag,jdbcType=SMALLINT}, 
+      #{sex,jdbcType=SMALLINT}, #{pwd,jdbcType=VARCHAR}, #{availtime,jdbcType=INTEGER}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{email,jdbcType=VARCHAR}, #{dsc,jdbcType=VARCHAR}, 
+      #{picpath,jdbcType=VARCHAR}, #{jobnum,jdbcType=VARCHAR}, #{groupnum,jdbcType=VARCHAR}, 
+      #{deptid2,jdbcType=INTEGER}, #{deptid3,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yaao.ps10.base.model.UserTable">
+    insert into PSBaseDb.dbo.UserTable
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="memberid != null">
+        MemberID,
+      </if>
+      <if test="logname != null">
+        LogName,
+      </if>
+      <if test="username != null">
+        UserName,
+      </if>
+      <if test="departmentid != null">
+        DepartmentID,
+      </if>
+      <if test="maintflag != null">
+        MaintFlag,
+      </if>
+      <if test="ondutyflag != null">
+        OndutyFlag,
+      </if>
+      <if test="roleid != null">
+        RoleID,
+      </if>
+      <if test="sroleid != null">
+        SRoleID,
+      </if>
+      <if test="troleid != null">
+        TRoleID,
+      </if>
+      <if test="cardcode != null">
+        CardCode,
+      </if>
+      <if test="telphone != null">
+        Telphone,
+      </if>
+      <if test="validflag != null">
+        ValidFlag,
+      </if>
+      <if test="sex != null">
+        Sex,
+      </if>
+      <if test="pwd != null">
+        Pwd,
+      </if>
+      <if test="availtime != null">
+        AvailTime,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="email != null">
+        Email,
+      </if>
+      <if test="dsc != null">
+        Dsc,
+      </if>
+      <if test="picpath != null">
+        PicPath,
+      </if>
+      <if test="jobnum != null">
+        JobNum,
+      </if>
+      <if test="groupnum != null">
+        GroupNum,
+      </if>
+      <if test="deptid2 != null">
+        deptid2,
+      </if>
+      <if test="deptid3 != null">
+        deptid3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="memberid != null">
+        #{memberid,jdbcType=INTEGER},
+      </if>
+      <if test="logname != null">
+        #{logname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentid != null">
+        #{departmentid,jdbcType=INTEGER},
+      </if>
+      <if test="maintflag != null">
+        #{maintflag,jdbcType=INTEGER},
+      </if>
+      <if test="ondutyflag != null">
+        #{ondutyflag,jdbcType=INTEGER},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="sroleid != null">
+        #{sroleid,jdbcType=INTEGER},
+      </if>
+      <if test="troleid != null">
+        #{troleid,jdbcType=INTEGER},
+      </if>
+      <if test="cardcode != null">
+        #{cardcode,jdbcType=INTEGER},
+      </if>
+      <if test="telphone != null">
+        #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="validflag != null">
+        #{validflag,jdbcType=SMALLINT},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="pwd != null">
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="availtime != null">
+        #{availtime,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="dsc != null">
+        #{dsc,jdbcType=VARCHAR},
+      </if>
+      <if test="picpath != null">
+        #{picpath,jdbcType=VARCHAR},
+      </if>
+      <if test="jobnum != null">
+        #{jobnum,jdbcType=VARCHAR},
+      </if>
+      <if test="groupnum != null">
+        #{groupnum,jdbcType=VARCHAR},
+      </if>
+      <if test="deptid2 != null">
+        #{deptid2,jdbcType=INTEGER},
+      </if>
+      <if test="deptid3 != null">
+        #{deptid3,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yaao.ps10.base.model.UserTableExample" resultType="java.lang.Long">
+    select count(*) from PSBaseDb.dbo.UserTable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update PSBaseDb.dbo.UserTable
+    <set>
+      <if test="record.memberid != null">
+        MemberID = #{record.memberid,jdbcType=INTEGER},
+      </if>
+      <if test="record.logname != null">
+        LogName = #{record.logname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null">
+        UserName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departmentid != null">
+        DepartmentID = #{record.departmentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.maintflag != null">
+        MaintFlag = #{record.maintflag,jdbcType=INTEGER},
+      </if>
+      <if test="record.ondutyflag != null">
+        OndutyFlag = #{record.ondutyflag,jdbcType=INTEGER},
+      </if>
+      <if test="record.roleid != null">
+        RoleID = #{record.roleid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sroleid != null">
+        SRoleID = #{record.sroleid,jdbcType=INTEGER},
+      </if>
+      <if test="record.troleid != null">
+        TRoleID = #{record.troleid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cardcode != null">
+        CardCode = #{record.cardcode,jdbcType=INTEGER},
+      </if>
+      <if test="record.telphone != null">
+        Telphone = #{record.telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.validflag != null">
+        ValidFlag = #{record.validflag,jdbcType=SMALLINT},
+      </if>
+      <if test="record.sex != null">
+        Sex = #{record.sex,jdbcType=SMALLINT},
+      </if>
+      <if test="record.pwd != null">
+        Pwd = #{record.pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.availtime != null">
+        AvailTime = #{record.availtime,jdbcType=INTEGER},
+      </if>
+      <if test="record.updatetime != null">
+        UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.email != null">
+        Email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dsc != null">
+        Dsc = #{record.dsc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picpath != null">
+        PicPath = #{record.picpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobnum != null">
+        JobNum = #{record.jobnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupnum != null">
+        GroupNum = #{record.groupnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptid2 != null">
+        deptid2 = #{record.deptid2,jdbcType=INTEGER},
+      </if>
+      <if test="record.deptid3 != null">
+        deptid3 = #{record.deptid3,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update PSBaseDb.dbo.UserTable
+    set MemberID = #{record.memberid,jdbcType=INTEGER},
+      LogName = #{record.logname,jdbcType=VARCHAR},
+      UserName = #{record.username,jdbcType=VARCHAR},
+      DepartmentID = #{record.departmentid,jdbcType=INTEGER},
+      MaintFlag = #{record.maintflag,jdbcType=INTEGER},
+      OndutyFlag = #{record.ondutyflag,jdbcType=INTEGER},
+      RoleID = #{record.roleid,jdbcType=INTEGER},
+      SRoleID = #{record.sroleid,jdbcType=INTEGER},
+      TRoleID = #{record.troleid,jdbcType=INTEGER},
+      CardCode = #{record.cardcode,jdbcType=INTEGER},
+      Telphone = #{record.telphone,jdbcType=VARCHAR},
+      ValidFlag = #{record.validflag,jdbcType=SMALLINT},
+      Sex = #{record.sex,jdbcType=SMALLINT},
+      Pwd = #{record.pwd,jdbcType=VARCHAR},
+      AvailTime = #{record.availtime,jdbcType=INTEGER},
+      UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      Email = #{record.email,jdbcType=VARCHAR},
+      Dsc = #{record.dsc,jdbcType=VARCHAR},
+      PicPath = #{record.picpath,jdbcType=VARCHAR},
+      JobNum = #{record.jobnum,jdbcType=VARCHAR},
+      GroupNum = #{record.groupnum,jdbcType=VARCHAR},
+      deptid2 = #{record.deptid2,jdbcType=INTEGER},
+      deptid3 = #{record.deptid3,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yaao.ps10.base.model.UserTable">
+    update PSBaseDb.dbo.UserTable
+    <set>
+      <if test="logname != null">
+        LogName = #{logname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentid != null">
+        DepartmentID = #{departmentid,jdbcType=INTEGER},
+      </if>
+      <if test="maintflag != null">
+        MaintFlag = #{maintflag,jdbcType=INTEGER},
+      </if>
+      <if test="ondutyflag != null">
+        OndutyFlag = #{ondutyflag,jdbcType=INTEGER},
+      </if>
+      <if test="roleid != null">
+        RoleID = #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="sroleid != null">
+        SRoleID = #{sroleid,jdbcType=INTEGER},
+      </if>
+      <if test="troleid != null">
+        TRoleID = #{troleid,jdbcType=INTEGER},
+      </if>
+      <if test="cardcode != null">
+        CardCode = #{cardcode,jdbcType=INTEGER},
+      </if>
+      <if test="telphone != null">
+        Telphone = #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="validflag != null">
+        ValidFlag = #{validflag,jdbcType=SMALLINT},
+      </if>
+      <if test="sex != null">
+        Sex = #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="pwd != null">
+        Pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="availtime != null">
+        AvailTime = #{availtime,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null">
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="dsc != null">
+        Dsc = #{dsc,jdbcType=VARCHAR},
+      </if>
+      <if test="picpath != null">
+        PicPath = #{picpath,jdbcType=VARCHAR},
+      </if>
+      <if test="jobnum != null">
+        JobNum = #{jobnum,jdbcType=VARCHAR},
+      </if>
+      <if test="groupnum != null">
+        GroupNum = #{groupnum,jdbcType=VARCHAR},
+      </if>
+      <if test="deptid2 != null">
+        deptid2 = #{deptid2,jdbcType=INTEGER},
+      </if>
+      <if test="deptid3 != null">
+        deptid3 = #{deptid3,jdbcType=INTEGER},
+      </if>
+    </set>
+    where MemberID = #{memberid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yaao.ps10.base.model.UserTable">
+    update PSBaseDb.dbo.UserTable
+    set LogName = #{logname,jdbcType=VARCHAR},
+      UserName = #{username,jdbcType=VARCHAR},
+      DepartmentID = #{departmentid,jdbcType=INTEGER},
+      MaintFlag = #{maintflag,jdbcType=INTEGER},
+      OndutyFlag = #{ondutyflag,jdbcType=INTEGER},
+      RoleID = #{roleid,jdbcType=INTEGER},
+      SRoleID = #{sroleid,jdbcType=INTEGER},
+      TRoleID = #{troleid,jdbcType=INTEGER},
+      CardCode = #{cardcode,jdbcType=INTEGER},
+      Telphone = #{telphone,jdbcType=VARCHAR},
+      ValidFlag = #{validflag,jdbcType=SMALLINT},
+      Sex = #{sex,jdbcType=SMALLINT},
+      Pwd = #{pwd,jdbcType=VARCHAR},
+      AvailTime = #{availtime,jdbcType=INTEGER},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      Email = #{email,jdbcType=VARCHAR},
+      Dsc = #{dsc,jdbcType=VARCHAR},
+      PicPath = #{picpath,jdbcType=VARCHAR},
+      JobNum = #{jobnum,jdbcType=VARCHAR},
+      GroupNum = #{groupnum,jdbcType=VARCHAR},
+      deptid2 = #{deptid2,jdbcType=INTEGER},
+      deptid3 = #{deptid3,jdbcType=INTEGER}
+    where MemberID = #{memberid,jdbcType=INTEGER}
+  </update>
+  <select id="selectLeaderByUserId" parameterType="com.yaao.ps10.base.model.UserTableExample"
+          resultType="java.lang.String">
+   select UserName from PSBaseDb.dbo.UserTable where RoleID in
+   (select RoleID from PSBaseDb.dbo.RoleTable where RoleName='班组长')
+  </select>
+  <select id="getUserInfoByUser" parameterType="com.yaao.ps10.base.model.UserTable" resultMap="BaseResultMap">
+    SELECT MemberID ,UserName FROM PSBaseDb.dbo.UserTable WHERE 1=1
+    <if test="roleid&gt;94">
+        and DepartmentID IN(SELECT DepartmentID FROM PSBaseDb.dbo.DepartmentTable WHERE ParentDepID=#{departmentid,jdbcType=INTEGER})
+    </if>
+    <if test="roleid&lt;94">
+      and DepartmentID=#{departmentid,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="selectByParams"  resultMap="BaseResultMap">
+    SELECT
+    u.LogName,
+    u.Sex,
+    d.DepartmentName,
+    r.RoleName,
+    u.CardCode,
+    u.Telphone,
+    u.Email,
+    u.MemberID,
+    u.RoleID,
+    u.DepartmentID
+    FROM
+    [PsBaseDB].[dbo].[UserTable] u
+    LEFT JOIN PsBaseDb.dbo.DepartmentTable d ON d.DepartmentID = u.DepartmentID
+    LEFT JOIN PsBaseDb.dbo.RoleTable r ON r.RoleID = u.RoleID
+    where 1=1
+    <if test="userName != null">
+      and u.LogName = #{userName,jdbcType=VARCHAR}
+    </if>
+    <if test="pwd != null">
+      and u.Pwd = #{pwd,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="selectByUser"  resultMap="BaseResultMap">
+    SELECT
+    MemberID, LogName, UserName, DepartmentID, MaintFlag, OndutyFlag, RoleID, SRoleID,
+    TRoleID, CardCode, Telphone, ValidFlag, Sex, Pwd, AvailTime, UpdateTime, Email, Dsc,
+    PicPath, JobNum, GroupNum, deptid2, deptid3
+    from PsBaseDB.dbo.UserTable
+    where 1=1
+    <if test="logname != null">
+      and LogName = #{logname,jdbcType=VARCHAR}
+    </if>
+    <if test="pwd != null">
+      and Pwd = #{pwd,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

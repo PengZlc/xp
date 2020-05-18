@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaao.ps10.web.mapper.InspectRoomStateMapper">
+  <resultMap id="BaseResultMap" type="com.yaao.ps10.web.model.InspectRoomState">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="Work_Id" jdbcType="INTEGER" property="workId" />
+    <result column="Room_Id" jdbcType="INTEGER" property="roomId" />
+    <result column="State" jdbcType="INTEGER" property="state" />
+    <result column="Work_Type" jdbcType="INTEGER" property="workType" />
+    <result column="PIID" jdbcType="VARCHAR" property="piid" />
+    <result column="Room_Type" jdbcType="INTEGER" property="roomType" />
+    <result column="User_Id" jdbcType="INTEGER" property="userId" />
+    <result column="IsNotException" jdbcType="INTEGER" property="isnotexception" />
+    <result column="ReasonData" jdbcType="VARCHAR" property="reasondata" />
+    <result column="App_DataJson" jdbcType="LONGNVARCHAR" property="appDatajson" />
+    <result column="DataContent" jdbcType="LONGNVARCHAR" property="datacontent" />
+    <result column="App_NfcAccount" jdbcType="LONGNVARCHAR" property="appnfcaccount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, Work_Id, Room_Id, State, Work_Type, PIID, Room_Type, User_Id, IsNotException, 
+    ReasonData,App_DataJson, DataContent,App_NfcAccount
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.yaao.ps10.web.model.InspectRoomStateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from WHY_Inspect_Room_State
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.yaao.ps10.web.model.InspectRoomStateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from WHY_Inspect_Room_State
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WHY_Inspect_Room_State
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from WHY_Inspect_Room_State
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yaao.ps10.web.model.InspectRoomStateExample">
+    delete from WHY_Inspect_Room_State
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yaao.ps10.web.model.InspectRoomState">
+    insert into WHY_Inspect_Room_State (id, Work_Id, Room_Id, 
+      State, Work_Type, PIID, 
+      Room_Type, User_Id, IsNotException, 
+      ReasonData, App_DataJson, DataContent
+      )
+    values (#{id,jdbcType=INTEGER}, #{workId,jdbcType=INTEGER}, #{roomId,jdbcType=INTEGER}, 
+      #{state,jdbcType=INTEGER}, #{workType,jdbcType=INTEGER}, #{piid,jdbcType=VARCHAR}, 
+      #{roomType,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{isnotexception,jdbcType=INTEGER}, 
+      #{reasondata,jdbcType=VARCHAR}, #{appDatajson,jdbcType=LONGNVARCHAR}, #{datacontent,jdbcType=LONGNVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yaao.ps10.web.model.InspectRoomState">
+    insert into WHY_Inspect_Room_State
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="workId != null">
+        Work_Id,
+      </if>
+      <if test="roomId != null">
+        Room_Id,
+      </if>
+      <if test="state != null">
+        State,
+      </if>
+      <if test="workType != null">
+        Work_Type,
+      </if>
+      <if test="piid != null">
+        PIID,
+      </if>
+      <if test="roomType != null">
+        Room_Type,
+      </if>
+      <if test="userId != null">
+        User_Id,
+      </if>
+      <if test="isnotexception != null">
+        IsNotException,
+      </if>
+      <if test="reasondata != null">
+        ReasonData,
+      </if>
+      <if test="appDatajson != null">
+        App_DataJson,
+      </if>
+      <if test="datacontent != null">
+        DataContent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="workId != null">
+        #{workId,jdbcType=INTEGER},
+      </if>
+      <if test="roomId != null">
+        #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="workType != null">
+        #{workType,jdbcType=INTEGER},
+      </if>
+      <if test="piid != null">
+        #{piid,jdbcType=VARCHAR},
+      </if>
+      <if test="roomType != null">
+        #{roomType,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isnotexception != null">
+        #{isnotexception,jdbcType=INTEGER},
+      </if>
+      <if test="reasondata != null">
+        #{reasondata,jdbcType=VARCHAR},
+      </if>
+      <if test="appDatajson != null">
+        #{appDatajson,jdbcType=LONGNVARCHAR},
+      </if>
+      <if test="datacontent != null">
+        #{datacontent,jdbcType=LONGNVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yaao.ps10.web.model.InspectRoomStateExample" resultType="java.lang.Long">
+    select count(*) from WHY_Inspect_Room_State
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update WHY_Inspect_Room_State
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.workId != null">
+        Work_Id = #{record.workId,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomId != null">
+        Room_Id = #{record.roomId,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null">
+        State = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.workType != null">
+        Work_Type = #{record.workType,jdbcType=INTEGER},
+      </if>
+      <if test="record.piid != null">
+        PIID = #{record.piid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomType != null">
+        Room_Type = #{record.roomType,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        User_Id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isnotexception != null">
+        IsNotException = #{record.isnotexception,jdbcType=INTEGER},
+      </if>
+      <if test="record.reasondata != null">
+        ReasonData = #{record.reasondata,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appDatajson != null">
+        App_DataJson = #{record.appDatajson,jdbcType=LONGNVARCHAR},
+      </if>
+      <if test="record.datacontent != null">
+        DataContent = #{record.datacontent,jdbcType=LONGNVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update WHY_Inspect_Room_State
+    set id = #{record.id,jdbcType=INTEGER},
+      Work_Id = #{record.workId,jdbcType=INTEGER},
+      Room_Id = #{record.roomId,jdbcType=INTEGER},
+      State = #{record.state,jdbcType=INTEGER},
+      Work_Type = #{record.workType,jdbcType=INTEGER},
+      PIID = #{record.piid,jdbcType=VARCHAR},
+      Room_Type = #{record.roomType,jdbcType=INTEGER},
+      User_Id = #{record.userId,jdbcType=INTEGER},
+      IsNotException = #{record.isnotexception,jdbcType=INTEGER},
+      ReasonData = #{record.reasondata,jdbcType=VARCHAR},
+      App_DataJson = #{record.appDatajson,jdbcType=LONGNVARCHAR},
+      DataContent = #{record.datacontent,jdbcType=LONGNVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update WHY_Inspect_Room_State
+    set id = #{record.id,jdbcType=INTEGER},
+      Work_Id = #{record.workId,jdbcType=INTEGER},
+      Room_Id = #{record.roomId,jdbcType=INTEGER},
+      State = #{record.state,jdbcType=INTEGER},
+      Work_Type = #{record.workType,jdbcType=INTEGER},
+      PIID = #{record.piid,jdbcType=VARCHAR},
+      Room_Type = #{record.roomType,jdbcType=INTEGER},
+      User_Id = #{record.userId,jdbcType=INTEGER},
+      IsNotException = #{record.isnotexception,jdbcType=INTEGER},
+      ReasonData = #{record.reasondata,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yaao.ps10.web.model.InspectRoomState">
+    update WHY_Inspect_Room_State
+    <set>
+      <if test="workId != null">
+        Work_Id = #{workId,jdbcType=INTEGER},
+      </if>
+      <if test="roomId != null">
+        Room_Id = #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        State = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="workType != null">
+        Work_Type = #{workType,jdbcType=INTEGER},
+      </if>
+      <if test="piid != null">
+        PIID = #{piid,jdbcType=VARCHAR},
+      </if>
+      <if test="roomType != null">
+        Room_Type = #{roomType,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        User_Id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isnotexception != null">
+        IsNotException = #{isnotexception,jdbcType=INTEGER},
+      </if>
+      <if test="reasondata != null">
+        ReasonData = #{reasondata,jdbcType=VARCHAR},
+      </if>
+      <if test="appDatajson != null">
+        App_DataJson = #{appDatajson,jdbcType=LONGNVARCHAR},
+      </if>
+      <if test="datacontent != null">
+        DataContent = #{datacontent,jdbcType=LONGNVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yaao.ps10.web.model.InspectRoomState">
+    update WHY_Inspect_Room_State
+    set Work_Id = #{workId,jdbcType=INTEGER},
+      Room_Id = #{roomId,jdbcType=INTEGER},
+      State = #{state,jdbcType=INTEGER},
+      Work_Type = #{workType,jdbcType=INTEGER},
+      PIID = #{piid,jdbcType=VARCHAR},
+      Room_Type = #{roomType,jdbcType=INTEGER},
+      User_Id = #{userId,jdbcType=INTEGER},
+      IsNotException = #{isnotexception,jdbcType=INTEGER},
+      ReasonData = #{reasondata,jdbcType=VARCHAR},
+      App_DataJson = #{appDatajson,jdbcType=LONGNVARCHAR},
+      DataContent = #{datacontent,jdbcType=LONGNVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yaao.ps10.web.model.InspectRoomState">
+    update WHY_Inspect_Room_State
+    set Work_Id = #{workId,jdbcType=INTEGER},
+      Room_Id = #{roomId,jdbcType=INTEGER},
+      State = #{state,jdbcType=INTEGER},
+      Work_Type = #{workType,jdbcType=INTEGER},
+      PIID = #{piid,jdbcType=VARCHAR},
+      Room_Type = #{roomType,jdbcType=INTEGER},
+      User_Id = #{userId,jdbcType=INTEGER},
+      IsNotException = #{isnotexception,jdbcType=INTEGER},
+      ReasonData = #{reasondata,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getInspectRoomState" parameterType="com.yaao.ps10.web.model.InspectRoomState" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from WHY_Inspect_Room_State
+    where 1=1
+    <if test="workId != null">
+      and Work_Id = #{workId,jdbcType=INTEGER}
+    </if>
+    <if test="roomId != null">
+      and Room_Id = #{roomId,jdbcType=INTEGER}
+    </if>
+    <if test="workType != null">
+      and Work_Type = #{workType,jdbcType=INTEGER}
+    </if>
+    <if test="piid != null">
+      and PIID = #{piid,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <update id="updateInspectRoomState" parameterType="com.yaao.ps10.web.model.InspectRoomState">
+    update WHY_Inspect_Room_State
+    <set>
+      <if test="workId != null">
+        Work_Id = #{workId,jdbcType=INTEGER},
+      </if>
+      <if test="roomId != null">
+        Room_Id = #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        State = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="workType != null">
+        Work_Type = #{workType,jdbcType=INTEGER},
+      </if>
+      <if test="piid != null">
+        PIID = #{piid,jdbcType=VARCHAR},
+      </if>
+      <if test="roomType != null">
+        Room_Type = #{roomType,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        User_Id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isnotexception != null">
+        IsNotException = #{isnotexception,jdbcType=INTEGER},
+      </if>
+      <if test="reasondata != null">
+        ReasonData = #{reasondata,jdbcType=VARCHAR},
+      </if>
+      <if test="appDatajson != null">
+        App_DataJson = #{appDatajson,jdbcType=LONGNVARCHAR},
+      </if>
+      <if test="datacontent != null">
+        DataContent = #{datacontent,jdbcType=LONGNVARCHAR},
+      </if>
+      <if test="appnfcaccount != null">
+        App_NfcAccount = #{appnfcaccount,jdbcType=LONGNVARCHAR},
+      </if>
+    </set>
+    where 1=1
+    <if test="piid != null">
+     and PIID = #{piid,jdbcType=VARCHAR}
+    </if>
+    <if test="roomId != null">
+     and Room_Id = #{roomId,jdbcType=INTEGER}
+    </if>
+  </update>
+</mapper>

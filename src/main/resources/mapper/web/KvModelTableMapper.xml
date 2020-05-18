@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaao.ps10.web.mapper.KvModelTableMapper">
+  <resultMap id="BaseResultMap" type="com.yaao.ps10.web.model.KvModelTable">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="ModelName" jdbcType="VARCHAR" property="modelname" />
+    <result column="CreateUserId" jdbcType="INTEGER" property="createuserid" />
+    <result column="CreateUserName" jdbcType="VARCHAR" property="createusername" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="ModelType" jdbcType="VARCHAR" property="modeltype" />
+    <result column="RoomIds" jdbcType="VARCHAR" property="roomids" />
+    <result column="UserIds" jdbcType="VARCHAR" property="userids" />
+    <result column="AreaId" jdbcType="INTEGER" property="areaid" />
+    <result column="DepartName" jdbcType="VARCHAR" property="departname" />
+    <result column="NfcSpaceTime" jdbcType="INTEGER" property="nfcspacetime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yaao.ps10.web.model.KvModelTable">
+    <result column="ModelContent" jdbcType="LONGNVARCHAR" property="modelcontent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, ModelName, CreateUserId, CreateUserName, CreateTime, ModelType, RoomIds, UserIds, 
+    AreaId, DepartName, NfcSpaceTime
+  </sql>
+  <sql id="Blob_Column_List">
+    ModelContent
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.yaao.ps10.web.model.KvModelTableExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from KV_ModelTable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.yaao.ps10.web.model.KvModelTableExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from KV_ModelTable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from KV_ModelTable
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from KV_ModelTable
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yaao.ps10.web.model.KvModelTableExample">
+    delete from KV_ModelTable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yaao.ps10.web.model.KvModelTable">
+    insert into KV_ModelTable (Id, ModelName, CreateUserId, 
+      CreateUserName, CreateTime, ModelType, 
+      RoomIds, UserIds, AreaId, 
+      DepartName, NfcSpaceTime, ModelContent
+      )
+    values (#{id,jdbcType=INTEGER}, #{modelname,jdbcType=VARCHAR}, #{createuserid,jdbcType=INTEGER}, 
+      #{createusername,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{modeltype,jdbcType=VARCHAR}, 
+      #{roomids,jdbcType=VARCHAR}, #{userids,jdbcType=VARCHAR}, #{areaid,jdbcType=INTEGER}, 
+      #{departname,jdbcType=VARCHAR}, #{nfcspacetime,jdbcType=INTEGER}, #{modelcontent,jdbcType=LONGNVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yaao.ps10.web.model.KvModelTable">
+    insert into KV_ModelTable
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="modelname != null">
+        ModelName,
+      </if>
+      <if test="createuserid != null">
+        CreateUserId,
+      </if>
+      <if test="createusername != null">
+        CreateUserName,
+      </if>
+      <if test="createtime != null">
+        CreateTime,
+      </if>
+      <if test="modeltype != null">
+        ModelType,
+      </if>
+      <if test="roomids != null">
+        RoomIds,
+      </if>
+      <if test="userids != null">
+        UserIds,
+      </if>
+      <if test="areaid != null">
+        AreaId,
+      </if>
+      <if test="departname != null">
+        DepartName,
+      </if>
+      <if test="nfcspacetime != null">
+        NfcSpaceTime,
+      </if>
+      <if test="modelcontent != null">
+        ModelContent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="modelname != null">
+        #{modelname,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null">
+        #{createuserid,jdbcType=INTEGER},
+      </if>
+      <if test="createusername != null">
+        #{createusername,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modeltype != null">
+        #{modeltype,jdbcType=VARCHAR},
+      </if>
+      <if test="roomids != null">
+        #{roomids,jdbcType=VARCHAR},
+      </if>
+      <if test="userids != null">
+        #{userids,jdbcType=VARCHAR},
+      </if>
+      <if test="areaid != null">
+        #{areaid,jdbcType=INTEGER},
+      </if>
+      <if test="departname != null">
+        #{departname,jdbcType=VARCHAR},
+      </if>
+      <if test="nfcspacetime != null">
+        #{nfcspacetime,jdbcType=INTEGER},
+      </if>
+      <if test="modelcontent != null">
+        #{modelcontent,jdbcType=LONGNVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yaao.ps10.web.model.KvModelTableExample" resultType="java.lang.Long">
+    select count(*) from KV_ModelTable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update KV_ModelTable
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.modelname != null">
+        ModelName = #{record.modelname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createuserid != null">
+        CreateUserId = #{record.createuserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.createusername != null">
+        CreateUserName = #{record.createusername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modeltype != null">
+        ModelType = #{record.modeltype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomids != null">
+        RoomIds = #{record.roomids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userids != null">
+        UserIds = #{record.userids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaid != null">
+        AreaId = #{record.areaid,jdbcType=INTEGER},
+      </if>
+      <if test="record.departname != null">
+        DepartName = #{record.departname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nfcspacetime != null">
+        NfcSpaceTime = #{record.nfcspacetime,jdbcType=INTEGER},
+      </if>
+      <if test="record.modelcontent != null">
+        ModelContent = #{record.modelcontent,jdbcType=LONGNVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update KV_ModelTable
+    set Id = #{record.id,jdbcType=INTEGER},
+      ModelName = #{record.modelname,jdbcType=VARCHAR},
+      CreateUserId = #{record.createuserid,jdbcType=INTEGER},
+      CreateUserName = #{record.createusername,jdbcType=VARCHAR},
+      CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
+      ModelType = #{record.modeltype,jdbcType=VARCHAR},
+      RoomIds = #{record.roomids,jdbcType=VARCHAR},
+      UserIds = #{record.userids,jdbcType=VARCHAR},
+      AreaId = #{record.areaid,jdbcType=INTEGER},
+      DepartName = #{record.departname,jdbcType=VARCHAR},
+      NfcSpaceTime = #{record.nfcspacetime,jdbcType=INTEGER},
+      ModelContent = #{record.modelcontent,jdbcType=LONGNVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update KV_ModelTable
+    set Id = #{record.id,jdbcType=INTEGER},
+      ModelName = #{record.modelname,jdbcType=VARCHAR},
+      CreateUserId = #{record.createuserid,jdbcType=INTEGER},
+      CreateUserName = #{record.createusername,jdbcType=VARCHAR},
+      CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
+      ModelType = #{record.modeltype,jdbcType=VARCHAR},
+      RoomIds = #{record.roomids,jdbcType=VARCHAR},
+      UserIds = #{record.userids,jdbcType=VARCHAR},
+      AreaId = #{record.areaid,jdbcType=INTEGER},
+      DepartName = #{record.departname,jdbcType=VARCHAR},
+      NfcSpaceTime = #{record.nfcspacetime,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yaao.ps10.web.model.KvModelTable">
+    update KV_ModelTable
+    <set>
+      <if test="modelname != null">
+        ModelName = #{modelname,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null">
+        CreateUserId = #{createuserid,jdbcType=INTEGER},
+      </if>
+      <if test="createusername != null">
+        CreateUserName = #{createusername,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modeltype != null">
+        ModelType = #{modeltype,jdbcType=VARCHAR},
+      </if>
+      <if test="roomids != null">
+        RoomIds = #{roomids,jdbcType=VARCHAR},
+      </if>
+      <if test="userids != null">
+        UserIds = #{userids,jdbcType=VARCHAR},
+      </if>
+      <if test="areaid != null">
+        AreaId = #{areaid,jdbcType=INTEGER},
+      </if>
+      <if test="departname != null">
+        DepartName = #{departname,jdbcType=VARCHAR},
+      </if>
+      <if test="nfcspacetime != null">
+        NfcSpaceTime = #{nfcspacetime,jdbcType=INTEGER},
+      </if>
+      <if test="modelcontent != null">
+        ModelContent = #{modelcontent,jdbcType=LONGNVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yaao.ps10.web.model.KvModelTable">
+    update KV_ModelTable
+    set ModelName = #{modelname,jdbcType=VARCHAR},
+      CreateUserId = #{createuserid,jdbcType=INTEGER},
+      CreateUserName = #{createusername,jdbcType=VARCHAR},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      ModelType = #{modeltype,jdbcType=VARCHAR},
+      RoomIds = #{roomids,jdbcType=VARCHAR},
+      UserIds = #{userids,jdbcType=VARCHAR},
+      AreaId = #{areaid,jdbcType=INTEGER},
+      DepartName = #{departname,jdbcType=VARCHAR},
+      NfcSpaceTime = #{nfcspacetime,jdbcType=INTEGER},
+      ModelContent = #{modelcontent,jdbcType=LONGNVARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yaao.ps10.web.model.KvModelTable">
+    update KV_ModelTable
+    set ModelName = #{modelname,jdbcType=VARCHAR},
+      CreateUserId = #{createuserid,jdbcType=INTEGER},
+      CreateUserName = #{createusername,jdbcType=VARCHAR},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      ModelType = #{modeltype,jdbcType=VARCHAR},
+      RoomIds = #{roomids,jdbcType=VARCHAR},
+      UserIds = #{userids,jdbcType=VARCHAR},
+      AreaId = #{areaid,jdbcType=INTEGER},
+      DepartName = #{departname,jdbcType=VARCHAR},
+      NfcSpaceTime = #{nfcspacetime,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getKvModelTableByMap" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from OADataDb.dbo.KV_ModelTable
+    WHERE 1=1
+    <if test="flag==0">
+        and Id IN (SELECT ModelId FROM OADataDb.dbo.KV_ModelTabel_Deploy WHERE UserId like '%${record.userId},%')
+    </if>
+    <if test="flag==1">
+      and Id IN (SELECT ModelId FROM OADataDb.dbo.KV_ModelTabel_Deploy WHERE RoomId=#{record.roomId,jdbcType=VARCHAR} AND UserId='')
+    </if>
+    <if test="flag==2">
+      and Id IN (SELECT ModelId FROM OADataDb.dbo.KV_ModelTabel_Deploy WHERE RoomId=#{record.roomId,jdbcType=VARCHAR} AND UserId like '%${record.userId},%')
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaao.ps10.shiro.mapper.UserMapper">
+    <resultMap id="userMap" type="com.yaao.ps10.shiro.pojo.UserBean">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="password" column="password"/>
+        <collection property="roles" ofType="com.yaao.ps10.shiro.pojo.RoleBean">
+            <id property="id" column="roleId"/>
+            <result property="name" column="roleName"/>
+           <!-- <collection property="permissions" ofType="com.yaao.ps10.shiro.pojo.PermissionBean">
+                <id property="id" column="permissionId"/>
+                <result property="name" column="permissionName"/>
+                <result property="url" column="permissionUrl"/>
+            </collection>-->
+        </collection>
+    </resultMap>
+
+    <select id="findByName" parameterType="String" resultType="com.yaao.ps10.shiro.pojo.UserBean">
+     SELECT MemberID AS id,LogName AS name,Pwd AS password FROM PSBaseDb.dbo.UserTable
+          WHERE LogName = #{name}
+    </select>
+
+    <select id="findById" parameterType="String" resultMap="userMap">
+     SELECT MemberID AS id,LogName AS name,Pwd AS password FROM PSBaseDb.dbo.UserTable
+             WHERE MemberID = #{id}
+    </select>
+</mapper>

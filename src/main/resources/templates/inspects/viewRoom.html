@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>巡检列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link th:href="@{/css/oksub.css}" rel="stylesheet" />
+</head>
+<body>
+    <div class="ok-body">
+        <!--数据表格-->
+        <table class="layui-hide" id="inspectList" lay-filter="tableFilter"></table>
+    </div>
+    <!--js逻辑-->
+    <script th:src="@{/lib/layui/layui.js}" ></script>
+    <script th:src="@{/js/inspect/inspectL.js}" ></script>
+
+    <!-- 行工具栏模板 -->
+    <script type="text/html" id="operationTpl">
+        <a href="javascript:" title="编辑" lay-event="edit"><i class="layui-icon">&#xe642;</i></a>
+        <a href="javascript:" title="巡检机房" lay-event="viewRoom"><i class="layui-icon">&#xe67c;</i></a>
+    </script>
+</body>
+</html>

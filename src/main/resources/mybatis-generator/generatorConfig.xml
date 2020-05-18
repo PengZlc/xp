@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="mybatis-generator/mybatisGeneratorinit.properties"/>
+    <context id="sqlseverContext" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+        <commentGenerator>
+            <!-- 这个元素用来去除指定生成的注释中是否包含生成的日期 false:表示包含 -->
+            <!-- 如果生成日期，会造成即使修改一个字段，整个实体类所有属性都会发生变化，不利于版本控制，所以设置为true -->
+            <property name="suppressDate" value="true" />
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!--数据库链接URL，用户名、密码 -->
+        <jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                        connectionURL="jdbc:sqlserver://localhost:1433;DatabaseName=OADataDb"
+                        userId="sa"
+                        password="password">
+        </jdbcConnection>
+        <!-- 生成模型的包名和位置 -->
+        <javaModelGenerator targetPackage="com.yaao.ps10.quartz.model" targetProject="src\main\java"/>
+        <!-- 生成映射文件的包名和位置 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src\main\resources\mapper\quartz"/>
+        <!-- 生成DAO的包名和位置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yaao.ps10.quartz.mapper"
+                             targetProject="src\main\java"/>
+        <!--生成全部表tableName设为%-->
+        <!--<table tableName="%">
+        </table>-->
+        <table domainObjectName="TaskScheduleJob" tableName="Task_Schedule_Job"></table>
+    </context>
+</generatorConfiguration>

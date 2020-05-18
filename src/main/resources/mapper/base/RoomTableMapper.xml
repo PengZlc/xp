@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaao.ps10.base.mapper.RoomTableMapper">
+  <resultMap id="BaseResultMap" type="com.yaao.ps10.base.model.RoomTable">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="ROOM_NAME" jdbcType="VARCHAR" property="roomName" />
+    <result column="ABBREVIATION" jdbcType="VARCHAR" property="abbreviation" />
+    <result column="ROOM_ALIAS" jdbcType="VARCHAR" property="roomAlias" />
+    <result column="ROOM_TYPE" jdbcType="INTEGER" property="roomType" />
+    <result column="SERVICE_LEVEL_TYPE" jdbcType="INTEGER" property="serviceLevelType" />
+    <result column="SITE_ID" jdbcType="INTEGER" property="siteId" />
+    <result column="FLOOR_NUMBER" jdbcType="INTEGER" property="floorNumber" />
+    <result column="ROOM_LENGTH" jdbcType="REAL" property="roomLength" />
+    <result column="ROOM_HEIGHT" jdbcType="REAL" property="roomHeight" />
+    <result column="ROOM_WIDTH" jdbcType="REAL" property="roomWidth" />
+    <result column="ROW_START_NUM" jdbcType="INTEGER" property="rowStartNum" />
+    <result column="ROW_END_NUM" jdbcType="INTEGER" property="rowEndNum" />
+    <result column="COL_START_NUM" jdbcType="INTEGER" property="colStartNum" />
+    <result column="COL_END_NUM" jdbcType="INTEGER" property="colEndNum" />
+    <result column="ROW_DIRECTION" jdbcType="INTEGER" property="rowDirection" />
+    <result column="COL_DIRECTION" jdbcType="INTEGER" property="colDirection" />
+    <result column="IS_ALTOGETHER" jdbcType="BIT" property="isAltogether" />
+    <result column="ALTOGETHER_UNIT" jdbcType="VARCHAR" property="altogetherUnit" />
+    <result column="IS_SHARING" jdbcType="BIT" property="isSharing" />
+    <result column="SHARING_UNIT" jdbcType="VARCHAR" property="sharingUnit" />
+    <result column="ROOM_NOTE" jdbcType="VARCHAR" property="roomNote" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, ROOM_NAME, ABBREVIATION, ROOM_ALIAS, ROOM_TYPE, SERVICE_LEVEL_TYPE, SITE_ID, 
+    FLOOR_NUMBER, ROOM_LENGTH, ROOM_HEIGHT, ROOM_WIDTH, ROW_START_NUM, ROW_END_NUM, COL_START_NUM, 
+    COL_END_NUM, ROW_DIRECTION, COL_DIRECTION, IS_ALTOGETHER, ALTOGETHER_UNIT, IS_SHARING, 
+    SHARING_UNIT, ROOM_NOTE
+  </sql>
+  <select id="selectByExample" parameterType="com.yaao.ps10.base.model.RoomTableExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from RoomTable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PSBaseDb.dbo.RoomTable
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from PSBaseDb.dbo.RoomTable
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yaao.ps10.base.model.RoomTableExample">
+    delete from PSBaseDb.dbo.RoomTable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yaao.ps10.base.model.RoomTable">
+    insert into RoomTable (ID, ROOM_NAME, ABBREVIATION, 
+      ROOM_ALIAS, ROOM_TYPE, SERVICE_LEVEL_TYPE, 
+      SITE_ID, FLOOR_NUMBER, ROOM_LENGTH, 
+      ROOM_HEIGHT, ROOM_WIDTH, ROW_START_NUM, 
+      ROW_END_NUM, COL_START_NUM, COL_END_NUM, 
+      ROW_DIRECTION, COL_DIRECTION, IS_ALTOGETHER, 
+      ALTOGETHER_UNIT, IS_SHARING, SHARING_UNIT, 
+      ROOM_NOTE)
+    values (#{id,jdbcType=INTEGER}, #{roomName,jdbcType=VARCHAR}, #{abbreviation,jdbcType=VARCHAR}, 
+      #{roomAlias,jdbcType=VARCHAR}, #{roomType,jdbcType=INTEGER}, #{serviceLevelType,jdbcType=INTEGER}, 
+      #{siteId,jdbcType=INTEGER}, #{floorNumber,jdbcType=INTEGER}, #{roomLength,jdbcType=REAL}, 
+      #{roomHeight,jdbcType=REAL}, #{roomWidth,jdbcType=REAL}, #{rowStartNum,jdbcType=INTEGER}, 
+      #{rowEndNum,jdbcType=INTEGER}, #{colStartNum,jdbcType=INTEGER}, #{colEndNum,jdbcType=INTEGER}, 
+      #{rowDirection,jdbcType=INTEGER}, #{colDirection,jdbcType=INTEGER}, #{isAltogether,jdbcType=BIT}, 
+      #{altogetherUnit,jdbcType=VARCHAR}, #{isSharing,jdbcType=BIT}, #{sharingUnit,jdbcType=VARCHAR}, 
+      #{roomNote,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yaao.ps10.base.model.RoomTable">
+    insert into RoomTable
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="roomName != null">
+        ROOM_NAME,
+      </if>
+      <if test="abbreviation != null">
+        ABBREVIATION,
+      </if>
+      <if test="roomAlias != null">
+        ROOM_ALIAS,
+      </if>
+      <if test="roomType != null">
+        ROOM_TYPE,
+      </if>
+      <if test="serviceLevelType != null">
+        SERVICE_LEVEL_TYPE,
+      </if>
+      <if test="siteId != null">
+        SITE_ID,
+      </if>
+      <if test="floorNumber != null">
+        FLOOR_NUMBER,
+      </if>
+      <if test="roomLength != null">
+        ROOM_LENGTH,
+      </if>
+      <if test="roomHeight != null">
+        ROOM_HEIGHT,
+      </if>
+      <if test="roomWidth != null">
+        ROOM_WIDTH,
+      </if>
+      <if test="rowStartNum != null">
+        ROW_START_NUM,
+      </if>
+      <if test="rowEndNum != null">
+        ROW_END_NUM,
+      </if>
+      <if test="colStartNum != null">
+        COL_START_NUM,
+      </if>
+      <if test="colEndNum != null">
+        COL_END_NUM,
+      </if>
+      <if test="rowDirection != null">
+        ROW_DIRECTION,
+      </if>
+      <if test="colDirection != null">
+        COL_DIRECTION,
+      </if>
+      <if test="isAltogether != null">
+        IS_ALTOGETHER,
+      </if>
+      <if test="altogetherUnit != null">
+        ALTOGETHER_UNIT,
+      </if>
+      <if test="isSharing != null">
+        IS_SHARING,
+      </if>
+      <if test="sharingUnit != null">
+        SHARING_UNIT,
+      </if>
+      <if test="roomNote != null">
+        ROOM_NOTE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roomName != null">
+        #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="abbreviation != null">
+        #{abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="roomAlias != null">
+        #{roomAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="roomType != null">
+        #{roomType,jdbcType=INTEGER},
+      </if>
+      <if test="serviceLevelType != null">
+        #{serviceLevelType,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null">
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="floorNumber != null">
+        #{floorNumber,jdbcType=INTEGER},
+      </if>
+      <if test="roomLength != null">
+        #{roomLength,jdbcType=REAL},
+      </if>
+      <if test="roomHeight != null">
+        #{roomHeight,jdbcType=REAL},
+      </if>
+      <if test="roomWidth != null">
+        #{roomWidth,jdbcType=REAL},
+      </if>
+      <if test="rowStartNum != null">
+        #{rowStartNum,jdbcType=INTEGER},
+      </if>
+      <if test="rowEndNum != null">
+        #{rowEndNum,jdbcType=INTEGER},
+      </if>
+      <if test="colStartNum != null">
+        #{colStartNum,jdbcType=INTEGER},
+      </if>
+      <if test="colEndNum != null">
+        #{colEndNum,jdbcType=INTEGER},
+      </if>
+      <if test="rowDirection != null">
+        #{rowDirection,jdbcType=INTEGER},
+      </if>
+      <if test="colDirection != null">
+        #{colDirection,jdbcType=INTEGER},
+      </if>
+      <if test="isAltogether != null">
+        #{isAltogether,jdbcType=BIT},
+      </if>
+      <if test="altogetherUnit != null">
+        #{altogetherUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="isSharing != null">
+        #{isSharing,jdbcType=BIT},
+      </if>
+      <if test="sharingUnit != null">
+        #{sharingUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNote != null">
+        #{roomNote,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yaao.ps10.base.model.RoomTableExample" resultType="java.lang.Long">
+    select count(*) from RoomTable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update RoomTable
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomName != null">
+        ROOM_NAME = #{record.roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abbreviation != null">
+        ABBREVIATION = #{record.abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomAlias != null">
+        ROOM_ALIAS = #{record.roomAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomType != null">
+        ROOM_TYPE = #{record.roomType,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceLevelType != null">
+        SERVICE_LEVEL_TYPE = #{record.serviceLevelType,jdbcType=INTEGER},
+      </if>
+      <if test="record.siteId != null">
+        SITE_ID = #{record.siteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.floorNumber != null">
+        FLOOR_NUMBER = #{record.floorNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomLength != null">
+        ROOM_LENGTH = #{record.roomLength,jdbcType=REAL},
+      </if>
+      <if test="record.roomHeight != null">
+        ROOM_HEIGHT = #{record.roomHeight,jdbcType=REAL},
+      </if>
+      <if test="record.roomWidth != null">
+        ROOM_WIDTH = #{record.roomWidth,jdbcType=REAL},
+      </if>
+      <if test="record.rowStartNum != null">
+        ROW_START_NUM = #{record.rowStartNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.rowEndNum != null">
+        ROW_END_NUM = #{record.rowEndNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.colStartNum != null">
+        COL_START_NUM = #{record.colStartNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.colEndNum != null">
+        COL_END_NUM = #{record.colEndNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.rowDirection != null">
+        ROW_DIRECTION = #{record.rowDirection,jdbcType=INTEGER},
+      </if>
+      <if test="record.colDirection != null">
+        COL_DIRECTION = #{record.colDirection,jdbcType=INTEGER},
+      </if>
+      <if test="record.isAltogether != null">
+        IS_ALTOGETHER = #{record.isAltogether,jdbcType=BIT},
+      </if>
+      <if test="record.altogetherUnit != null">
+        ALTOGETHER_UNIT = #{record.altogetherUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isSharing != null">
+        IS_SHARING = #{record.isSharing,jdbcType=BIT},
+      </if>
+      <if test="record.sharingUnit != null">
+        SHARING_UNIT = #{record.sharingUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomNote != null">
+        ROOM_NOTE = #{record.roomNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update RoomTable
+    set ID = #{record.id,jdbcType=INTEGER},
+      ROOM_NAME = #{record.roomName,jdbcType=VARCHAR},
+      ABBREVIATION = #{record.abbreviation,jdbcType=VARCHAR},
+      ROOM_ALIAS = #{record.roomAlias,jdbcType=VARCHAR},
+      ROOM_TYPE = #{record.roomType,jdbcType=INTEGER},
+      SERVICE_LEVEL_TYPE = #{record.serviceLevelType,jdbcType=INTEGER},
+      SITE_ID = #{record.siteId,jdbcType=INTEGER},
+      FLOOR_NUMBER = #{record.floorNumber,jdbcType=INTEGER},
+      ROOM_LENGTH = #{record.roomLength,jdbcType=REAL},
+      ROOM_HEIGHT = #{record.roomHeight,jdbcType=REAL},
+      ROOM_WIDTH = #{record.roomWidth,jdbcType=REAL},
+      ROW_START_NUM = #{record.rowStartNum,jdbcType=INTEGER},
+      ROW_END_NUM = #{record.rowEndNum,jdbcType=INTEGER},
+      COL_START_NUM = #{record.colStartNum,jdbcType=INTEGER},
+      COL_END_NUM = #{record.colEndNum,jdbcType=INTEGER},
+      ROW_DIRECTION = #{record.rowDirection,jdbcType=INTEGER},
+      COL_DIRECTION = #{record.colDirection,jdbcType=INTEGER},
+      IS_ALTOGETHER = #{record.isAltogether,jdbcType=BIT},
+      ALTOGETHER_UNIT = #{record.altogetherUnit,jdbcType=VARCHAR},
+      IS_SHARING = #{record.isSharing,jdbcType=BIT},
+      SHARING_UNIT = #{record.sharingUnit,jdbcType=VARCHAR},
+      ROOM_NOTE = #{record.roomNote,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yaao.ps10.base.model.RoomTable">
+    update RoomTable
+    <set>
+      <if test="roomName != null">
+        ROOM_NAME = #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="abbreviation != null">
+        ABBREVIATION = #{abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="roomAlias != null">
+        ROOM_ALIAS = #{roomAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="roomType != null">
+        ROOM_TYPE = #{roomType,jdbcType=INTEGER},
+      </if>
+      <if test="serviceLevelType != null">
+        SERVICE_LEVEL_TYPE = #{serviceLevelType,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null">
+        SITE_ID = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="floorNumber != null">
+        FLOOR_NUMBER = #{floorNumber,jdbcType=INTEGER},
+      </if>
+      <if test="roomLength != null">
+        ROOM_LENGTH = #{roomLength,jdbcType=REAL},
+      </if>
+      <if test="roomHeight != null">
+        ROOM_HEIGHT = #{roomHeight,jdbcType=REAL},
+      </if>
+      <if test="roomWidth != null">
+        ROOM_WIDTH = #{roomWidth,jdbcType=REAL},
+      </if>
+      <if test="rowStartNum != null">
+        ROW_START_NUM = #{rowStartNum,jdbcType=INTEGER},
+      </if>
+      <if test="rowEndNum != null">
+        ROW_END_NUM = #{rowEndNum,jdbcType=INTEGER},
+      </if>
+      <if test="colStartNum != null">
+        COL_START_NUM = #{colStartNum,jdbcType=INTEGER},
+      </if>
+      <if test="colEndNum != null">
+        COL_END_NUM = #{colEndNum,jdbcType=INTEGER},
+      </if>
+      <if test="rowDirection != null">
+        ROW_DIRECTION = #{rowDirection,jdbcType=INTEGER},
+      </if>
+      <if test="colDirection != null">
+        COL_DIRECTION = #{colDirection,jdbcType=INTEGER},
+      </if>
+      <if test="isAltogether != null">
+        IS_ALTOGETHER = #{isAltogether,jdbcType=BIT},
+      </if>
+      <if test="altogetherUnit != null">
+        ALTOGETHER_UNIT = #{altogetherUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="isSharing != null">
+        IS_SHARING = #{isSharing,jdbcType=BIT},
+      </if>
+      <if test="sharingUnit != null">
+        SHARING_UNIT = #{sharingUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNote != null">
+        ROOM_NOTE = #{roomNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yaao.ps10.base.model.RoomTable">
+    update RoomTable
+    set ROOM_NAME = #{roomName,jdbcType=VARCHAR},
+      ABBREVIATION = #{abbreviation,jdbcType=VARCHAR},
+      ROOM_ALIAS = #{roomAlias,jdbcType=VARCHAR},
+      ROOM_TYPE = #{roomType,jdbcType=INTEGER},
+      SERVICE_LEVEL_TYPE = #{serviceLevelType,jdbcType=INTEGER},
+      SITE_ID = #{siteId,jdbcType=INTEGER},
+      FLOOR_NUMBER = #{floorNumber,jdbcType=INTEGER},
+      ROOM_LENGTH = #{roomLength,jdbcType=REAL},
+      ROOM_HEIGHT = #{roomHeight,jdbcType=REAL},
+      ROOM_WIDTH = #{roomWidth,jdbcType=REAL},
+      ROW_START_NUM = #{rowStartNum,jdbcType=INTEGER},
+      ROW_END_NUM = #{rowEndNum,jdbcType=INTEGER},
+      COL_START_NUM = #{colStartNum,jdbcType=INTEGER},
+      COL_END_NUM = #{colEndNum,jdbcType=INTEGER},
+      ROW_DIRECTION = #{rowDirection,jdbcType=INTEGER},
+      COL_DIRECTION = #{colDirection,jdbcType=INTEGER},
+      IS_ALTOGETHER = #{isAltogether,jdbcType=BIT},
+      ALTOGETHER_UNIT = #{altogetherUnit,jdbcType=VARCHAR},
+      IS_SHARING = #{isSharing,jdbcType=BIT},
+      SHARING_UNIT = #{sharingUnit,jdbcType=VARCHAR},
+      ROOM_NOTE = #{roomNote,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

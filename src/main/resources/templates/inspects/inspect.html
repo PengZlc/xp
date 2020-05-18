@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>巡检列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link th:href="@{/css/oksub.css}" rel="stylesheet" />
+</head>
+<body>
+    <div class="ok-body">
+        <!--模糊搜索区域-->
+        <form class="layui-form ok-search-form">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">巡检区域</label>
+                    <div class="layui-input-inline">
+                        <select id="siteId" name="siteId" lay-verify="">
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">开始日期</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" placeholder="开始日期" autocomplete="off" id="startTime" name="startTime">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">结束日期</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" placeholder="结束日期" autocomplete="off" id="endTime" name="endTime">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <button class="layui-btn" lay-submit="" lay-filter="search">
+                            <i class="layui-icon">&#xe615;</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!--数据表格-->
+        <table class="layui-hide" id="inspectList" lay-filter="tableFilter"></table>
+    </div>
+    <!--js逻辑-->
+    <script th:src="@{/lib/layui/layui.js}" ></script>
+    <script th:src="@{/js/inspect/inspectL.js}" ></script>
+
+    <!-- 行工具栏模板 -->
+    <script type="text/html" id="operationTpl">
+        <a href="javascript:" title="编辑" lay-event="edit"><i class="layui-icon">&#xe642;</i></a>
+        <a href="javascript:" title="巡检机房" lay-event="viewRoom"><i class="layui-icon">&#xe67c;</i></a>
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaao.ps10.web.mapper.RoomStateMapper">
+    <resultMap id="BaseResultMap" type="com.yaao.ps10.web.model.RoomState">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="inspectId" jdbcType="VARCHAR" property="inspectId"/>
+        <result column="roomId" jdbcType="INTEGER" property="roomId"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="roomName" jdbcType="VARCHAR" property="roomName"/>
+        <result column="roomType" jdbcType="INTEGER" property="roomType"/>
+        <result column="dataJson" jdbcType="VARCHAR" property="dataJson"/>
+        <result column="userName" jdbcType="VARCHAR" property="userName"/>
+        <result column="picNames" jdbcType="VARCHAR" property="picNames"/>
+        <result column="isNotExcep" jdbcType="INTEGER" property="isNotExcep"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id,inspectId,roomId,state,roomName,roomType,dataJson,userName,picNames,isNotExcep
+  </sql>
+    <select id="getRoomInfoById" parameterType="com.yaao.ps10.web.model.RoomState" resultMap="BaseResultMap">
+        SELECT wirs.id,wirs.PIID as inspectId,wirs.Room_Id as roomId,wirs.State as state,CASE WHEN rt.ABBREVIATION IS NULL
+        THEN rt.ROOM_NAME ELSE rt.ABBREVIATION END AS roomName, wirs.ROOM_TYPE as roomType,'' AS dataJson,'' AS userName,
+        '' AS picNames,wirs.IsNotException AS IsNotExcep FROM WHY_Inspect_Room_State wirs LEFT JOIN PSBaseDb.dbo.RoomTable rt ON rt.ID = wirs.Room_Id
+        WHERE wirs.PIID =#{processInstanceId}
+        <if test="flag==0">
+            and User_Id=#{userId}
+        </if>
+        <if test="flag==0">
+            and rt.SITE_ID =#{siteId}
+        </if>
+        order by rt.ID ASC
+    </select>
+</mapper>

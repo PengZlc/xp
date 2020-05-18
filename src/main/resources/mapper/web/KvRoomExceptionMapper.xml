@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaao.ps10.web.mapper.KvRoomExceptionMapper">
+  <resultMap id="BaseResultMap" type="com.yaao.ps10.web.model.KvRoomException">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="Room_Id" jdbcType="INTEGER" property="roomId" />
+    <result column="PROC_INST_ID" jdbcType="NVARCHAR" property="procInstId" />
+    <result column="SUBMIT_TIME" jdbcType="TIMESTAMP" property="submitTime" />
+    <result column="Data_Context" jdbcType="NVARCHAR" property="dataContext" />
+    <result column="Room_Name" jdbcType="VARCHAR" property="roomName" />
+    <result column="IsNotExcep" jdbcType="INTEGER" property="isnotexcep" />
+    <result column="UserName" jdbcType="VARCHAR" property="username" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, Room_Id, PROC_INST_ID, SUBMIT_TIME, Data_Context, Room_Name, IsNotExcep, UserName
+  </sql>
+  <select id="selectByExample" parameterType="com.yaao.ps10.web.model.KvRoomException" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from KV_Room_Exception
+    where 1=1
+    <if test="procInstId != null">
+      and PROC_INST_ID = #{procInstId,jdbcType=NVARCHAR}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from KV_Room_Exception
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from KV_Room_Exception
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yaao.ps10.web.model.KvRoomException">
+    delete from KV_Room_Exception
+  </delete>
+  <insert id="insert" parameterType="com.yaao.ps10.web.model.KvRoomException">
+    insert into KV_Room_Exception (Room_Id, PROC_INST_ID,
+      SUBMIT_TIME, Data_Context, Room_Name, 
+      IsNotExcep, UserName)
+    values ( #{roomId,jdbcType=INTEGER}, #{procInstId,jdbcType=NVARCHAR},
+      #{submitTime,jdbcType=TIMESTAMP}, #{dataContext,jdbcType=NVARCHAR}, #{roomName,jdbcType=VARCHAR}, 
+      #{isnotexcep,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yaao.ps10.web.model.KvRoomException">
+    insert into KV_Room_Exception
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="roomId != null">
+        Room_Id,
+      </if>
+      <if test="procInstId != null">
+        PROC_INST_ID,
+      </if>
+      <if test="submitTime != null">
+        SUBMIT_TIME,
+      </if>
+      <if test="dataContext != null">
+        Data_Context,
+      </if>
+      <if test="roomName != null">
+        Room_Name,
+      </if>
+      <if test="isnotexcep != null">
+        IsNotExcep,
+      </if>
+      <if test="username != null">
+        UserName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roomId != null">
+        #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="procInstId != null">
+        #{procInstId,jdbcType=NVARCHAR},
+      </if>
+      <if test="submitTime != null">
+        #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataContext != null">
+        #{dataContext,jdbcType=NVARCHAR},
+      </if>
+      <if test="roomName != null">
+        #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="isnotexcep != null">
+        #{isnotexcep,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yaao.ps10.web.model.KvRoomException" resultType="java.lang.Long">
+    select count(*) from KV_Room_Exception
+    where 1=1
+    <if test="roomId != null">
+      and Room_Id = #{roomId,jdbcType=INTEGER}
+    </if>
+    <if test="procInstId != null">
+      and PROC_INST_ID = #{procInstId,jdbcType=NVARCHAR}
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update KV_Room_Exception
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomId != null">
+        Room_Id = #{record.roomId,jdbcType=INTEGER},
+      </if>
+      <if test="record.procInstId != null">
+        PROC_INST_ID = #{record.procInstId,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.submitTime != null">
+        SUBMIT_TIME = #{record.submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dataContext != null">
+        Data_Context = #{record.dataContext,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.roomName != null">
+        Room_Name = #{record.roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isnotexcep != null">
+        IsNotExcep = #{record.isnotexcep,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        UserName = #{record.username,jdbcType=VARCHAR},
+      </if>
+    </set>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update KV_Room_Exception
+    set ID = #{record.id,jdbcType=INTEGER},
+      Room_Id = #{record.roomId,jdbcType=INTEGER},
+      PROC_INST_ID = #{record.procInstId,jdbcType=NVARCHAR},
+      SUBMIT_TIME = #{record.submitTime,jdbcType=TIMESTAMP},
+      Data_Context = #{record.dataContext,jdbcType=NVARCHAR},
+      Room_Name = #{record.roomName,jdbcType=VARCHAR},
+      IsNotExcep = #{record.isnotexcep,jdbcType=INTEGER},
+      UserName = #{record.username,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yaao.ps10.web.model.KvRoomException">
+    update KV_Room_Exception
+    <set>
+      <if test="roomId != null">
+        Room_Id = #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="procInstId != null">
+        PROC_INST_ID = #{procInstId,jdbcType=NVARCHAR},
+      </if>
+      <if test="submitTime != null">
+        SUBMIT_TIME = #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataContext != null">
+        Data_Context = Data_Context +' '+ #{dataContext,jdbcType=NVARCHAR},
+      </if>
+      <if test="roomName != null">
+        Room_Name = #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="isnotexcep != null">
+        IsNotExcep = #{isnotexcep,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where 1=1
+    <if test="procInstId != null">
+        and PROC_INST_ID = #{procInstId,jdbcType=NVARCHAR}
+    </if>
+    <if test="roomId != null">
+        and  Room_Id = #{roomId,jdbcType=INTEGER}
+    </if>
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yaao.ps10.web.model.KvRoomException">
+    update KV_Room_Exception
+    set Room_Id = #{roomId,jdbcType=INTEGER},
+      PROC_INST_ID = #{procInstId,jdbcType=NVARCHAR},
+      SUBMIT_TIME = #{submitTime,jdbcType=TIMESTAMP},
+      Data_Context = #{dataContext,jdbcType=NVARCHAR},
+      Room_Name = #{roomName,jdbcType=VARCHAR},
+      IsNotExcep = #{isnotexcep,jdbcType=INTEGER},
+      UserName = #{username,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByKvRoomException" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from KV_Room_Exception
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>

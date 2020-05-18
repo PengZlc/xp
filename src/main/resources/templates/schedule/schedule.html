@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>调度列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link th:href="@{/css/oksub.css}" rel="stylesheet" />
+</head>
+<body>
+    <div class="ok-body">
+        <!--数据表格-->
+        <table class="layui-hide" id="scheduleList" lay-filter="tableFilter"></table>
+    </div>
+    <!--js逻辑-->
+    <script th:src="@{/lib/layui/layui.js}" ></script>
+    <script th:inline="none">
+        layui.use(["element", "table", "form", "laydate", "okLayer", "okUtils", "okMock"], function () {
+            let table = layui.table;
+            let form = layui.form;
+            let laydate = layui.laydate;
+            let okLayer = layui.okLayer;
+            let okUtils = layui.okUtils;
+            let okMock = layui.okMock;
+            let $ = layui.jquery;
+
+
+            let userTable = table.render({
+                elem: '#scheduleList',
+                url: okMock.api.schedule,
+                limit: 20,
+                page: true,
+                toolbar: true,
+                toolbar: "",
+                size: "sm",
+                cols: [[
+                    /* {type: "checkbox", fixed: "left"},*/
+                    {title: "操作", width: 100, align: "center", fixed: "right", templet: "#operationTpl"},
+                    {field: "jobId", title: "ID", width: 80, sort: true},
+                    {field: "jobName", title: "任务名称", width: 200},
+                    {field: "jobStatus", title: "状态", width: 80},
+                    {field: "jobTyle", title: "类型", width: 80}
+                ]],
+                done: function (res, curr, count) {
+                    console.info(res, curr, count);
+                }
+            });
+        });
+    </script>
+    <!-- 头工具栏模板 -->
+    <script type="text/html" id="toolbarTpl">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="batchEnabled">新增任务</button>
+            <button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="batchDisabled">批量停用</button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="batchDel">批量删除</button>
+            <button class="layui-btn layui-btn-sm" lay-event="add">添加用户</button>
+        </div>
+    </script>
+</body>
+</html>

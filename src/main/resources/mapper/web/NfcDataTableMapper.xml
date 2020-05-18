@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaao.ps10.web.mapper.NfcDataTableMapper">
+  <resultMap id="BaseResultMap" type="com.yaao.ps10.web.model.NfcDataTable">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="Room_Id" jdbcType="INTEGER" property="roomId" />
+    <result column="NFC_Code" jdbcType="NVARCHAR" property="nfcCode" />
+    <result column="Create_Time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="Process_Id" jdbcType="NVARCHAR" property="processId" />
+    <result column="State" jdbcType="INTEGER" property="state" />
+    <result column="Creare_User" jdbcType="VARCHAR" property="creareUser" />
+    <result column="roomName" jdbcType="VARCHAR" property="roomName" />
+    <result column="devicePlace" jdbcType="VARCHAR" property="devicePlace" />
+    <result column="sourcePlace" jdbcType="VARCHAR" property="sourcePlace" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, Room_Id, NFC_Code, Create_Time, Process_Id, State, Creare_User
+  </sql>
+  <select id="selectByExample" parameterType="com.yaao.ps10.web.model.NfcDataTableExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from NFC_DataTable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from NFC_DataTable
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from NFC_DataTable
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yaao.ps10.web.model.NfcDataTableExample">
+    delete from NFC_DataTable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yaao.ps10.web.model.NfcDataTable">
+    insert into NFC_DataTable (ID, Room_Id, NFC_Code, 
+      Create_Time, Process_Id, State, 
+      Creare_User)
+    values (#{id,jdbcType=INTEGER}, #{roomId,jdbcType=INTEGER}, #{nfcCode,jdbcType=NVARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{processId,jdbcType=NVARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{creareUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yaao.ps10.web.model.NfcDataTable">
+    insert into NFC_DataTable
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="roomId != null">
+        Room_Id,
+      </if>
+      <if test="nfcCode != null">
+        NFC_Code,
+      </if>
+      <if test="createTime != null">
+        Create_Time,
+      </if>
+      <if test="processId != null">
+        Process_Id,
+      </if>
+      <if test="state != null">
+        State,
+      </if>
+      <if test="creareUser != null">
+        Creare_User,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roomId != null">
+        #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="nfcCode != null">
+        #{nfcCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processId != null">
+        #{processId,jdbcType=NVARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="creareUser != null">
+        #{creareUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yaao.ps10.web.model.NfcDataTableExample" resultType="java.lang.Long">
+    select count(*) from NFC_DataTable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update NFC_DataTable
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomId != null">
+        Room_Id = #{record.roomId,jdbcType=INTEGER},
+      </if>
+      <if test="record.nfcCode != null">
+        NFC_Code = #{record.nfcCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        Create_Time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.processId != null">
+        Process_Id = #{record.processId,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.state != null">
+        State = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.creareUser != null">
+        Creare_User = #{record.creareUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update NFC_DataTable
+    set ID = #{record.id,jdbcType=INTEGER},
+      Room_Id = #{record.roomId,jdbcType=INTEGER},
+      NFC_Code = #{record.nfcCode,jdbcType=NVARCHAR},
+      Create_Time = #{record.createTime,jdbcType=TIMESTAMP},
+      Process_Id = #{record.processId,jdbcType=NVARCHAR},
+      State = #{record.state,jdbcType=INTEGER},
+      Creare_User = #{record.creareUser,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yaao.ps10.web.model.NfcDataTable">
+    update NFC_DataTable
+    <set>
+      <if test="roomId != null">
+        Room_Id = #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="nfcCode != null">
+        NFC_Code = #{nfcCode,jdbcType=NVARCHAR},
+      </if>
+      <if test="createTime != null">
+        Create_Time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processId != null">
+        Process_Id = #{processId,jdbcType=NVARCHAR},
+      </if>
+      <if test="state != null">
+        State = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="creareUser != null">
+        Creare_User = #{creareUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yaao.ps10.web.model.NfcDataTable">
+    update NFC_DataTable
+    set Room_Id = #{roomId,jdbcType=INTEGER},
+      NFC_Code = #{nfcCode,jdbcType=NVARCHAR},
+      Create_Time = #{createTime,jdbcType=TIMESTAMP},
+      Process_Id = #{processId,jdbcType=NVARCHAR},
+      State = #{state,jdbcType=INTEGER},
+      Creare_User = #{creareUser,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getNFCDataInfo" parameterType="com.yaao.ps10.web.model.NfcDataTable" resultMap="BaseResultMap">
+    SELECT nfc.ID,nfc.Room_Id,nfc.NFC_Code as Nfc_Code,Convert(varchar(30),nfc.Create_Time,120) as Create_Time,nfc.Process_Id,nfc.State,nfc.Creare_User,room.Room_Name
+	,record.devicePlace,record.sourcePlace FROM OADataDb.dbo.NFC_DataTable as nfc LEFT JOIN PSBaseDb.dbo.RoomTable as room ON room.ID=nfc.Room_Id
+	LEFT JOIN OADataDb.dbo.NFC_Record record ON record.machineRoomID=nfc.Room_Id and record.cardNumber=nfc.NFC_Code  WHERE
+	nfc.Process_Id=615112 AND nfc.Room_Id=637540352;
+  </select>
+  <select id="getNfcModelByNfc" parameterType="com.yaao.ps10.web.model.NfcDataTable" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from NFC_DataTable
+    where 1=1
+    <if test="roomId != null">
+      and Room_Id = #{roomId,jdbcType=INTEGER}
+    </if>
+    <if test="nfcCode != null">
+      and NFC_Code = #{nfcCode,jdbcType=NVARCHAR}
+    </if>
+    <if test="processId != null">
+      and Process_Id = #{processId,jdbcType=NVARCHAR}
+    </if>
+  </select>
+</mapper>

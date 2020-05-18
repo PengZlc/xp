@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaao.ps10.web.mapper.KvEvaluateMapper">
+  <resultMap id="BaseResultMap" type="com.yaao.ps10.web.model.KvEvaluate">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="ProcessId" jdbcType="VARCHAR" property="processid" />
+    <result column="RoomId" jdbcType="INTEGER" property="roomid" />
+    <result column="UserId" jdbcType="INTEGER" property="userid" />
+    <result column="UserContext" jdbcType="VARCHAR" property="usercontext" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="NoUserId" jdbcType="INTEGER" property="nouserid" />
+    <result column="roomName" jdbcType="VARCHAR" property="roomName" />
+    <result column="userName" jdbcType="VARCHAR" property="userName" />
+    <result column="noUserName" jdbcType="VARCHAR" property="noUserName" />
+    <result column="taskName" jdbcType="VARCHAR" property="taskName" />
+    <result column="taskId" jdbcType="INTEGER" property="taskId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, ProcessId, RoomId, UserId, UserContext, CreateTime, NoUserId
+  </sql>
+  <select id="selectByExample" parameterType="com.yaao.ps10.web.model.KvEvaluateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from KV_Evaluate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from KV_Evaluate
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from KV_Evaluate
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yaao.ps10.web.model.KvEvaluateExample">
+    delete from KV_Evaluate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yaao.ps10.web.model.KvEvaluate">
+    insert into KV_Evaluate (ProcessId, RoomId,
+      UserId, UserContext, CreateTime, 
+      NoUserId)
+    values (#{processid,jdbcType=VARCHAR}, #{roomid,jdbcType=INTEGER},
+      #{userid,jdbcType=INTEGER}, #{usercontext,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{nouserid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yaao.ps10.web.model.KvEvaluate">
+    insert into KV_Evaluate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="processid != null">
+        ProcessId,
+      </if>
+      <if test="roomid != null">
+        RoomId,
+      </if>
+      <if test="userid != null">
+        UserId,
+      </if>
+      <if test="usercontext != null">
+        UserContext,
+      </if>
+      <if test="createtime != null">
+        CreateTime,
+      </if>
+      <if test="nouserid != null">
+        NoUserId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="processid != null">
+        #{processid,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="usercontext != null">
+        #{usercontext,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nouserid != null">
+        #{nouserid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yaao.ps10.web.model.KvEvaluateExample" resultType="java.lang.Long">
+    select count(*) from KV_Evaluate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update KV_Evaluate
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.processid != null">
+        ProcessId = #{record.processid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomid != null">
+        RoomId = #{record.roomid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null">
+        UserId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.usercontext != null">
+        UserContext = #{record.usercontext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.nouserid != null">
+        NoUserId = #{record.nouserid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update KV_Evaluate
+    set Id = #{record.id,jdbcType=INTEGER},
+      ProcessId = #{record.processid,jdbcType=VARCHAR},
+      RoomId = #{record.roomid,jdbcType=INTEGER},
+      UserId = #{record.userid,jdbcType=INTEGER},
+      UserContext = #{record.usercontext,jdbcType=VARCHAR},
+      CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
+      NoUserId = #{record.nouserid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yaao.ps10.web.model.KvEvaluate">
+    update KV_Evaluate
+    <set>
+      <if test="processid != null">
+        ProcessId = #{processid,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        RoomId = #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="usercontext != null">
+        UserContext = #{usercontext,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nouserid != null">
+        NoUserId = #{nouserid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yaao.ps10.web.model.KvEvaluate">
+    update KV_Evaluate
+    set ProcessId = #{processid,jdbcType=VARCHAR},
+      RoomId = #{roomid,jdbcType=INTEGER},
+      UserId = #{userid,jdbcType=INTEGER},
+      UserContext = #{usercontext,jdbcType=VARCHAR},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      NoUserId = #{nouserid,jdbcType=INTEGER}
+    where 1=1
+    <if test="processid != null">
+      and ProcessId = #{processid,jdbcType=VARCHAR}
+    </if>
+    <if test="roomid != null">
+      and RoomId = #{roomid,jdbcType=INTEGER}
+    </if>
+  </update>
+  <resultMap id="KvEvaluateResultMap" type="com.yaao.ps10.web.model.KvEvaluate">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="ProcessId" jdbcType="VARCHAR" property="processid" />
+    <result column="RoomId" jdbcType="INTEGER" property="roomid" />
+    <result column="UserId" jdbcType="INTEGER" property="userid" />
+    <result column="UserContext" jdbcType="VARCHAR" property="usercontext" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="NoUserId" jdbcType="INTEGER" property="nouserid" />
+  </resultMap>
+  <sql id="KvEvaluate_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_KvEvaluate_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="KvEvaluate_Column_List">
+    Id, ProcessId, RoomId, UserId, UserContext, CreateTime, NoUserId
+  </sql>
+  <select id="getKvEvaluateById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT kve.Id,kve.ProcessId,kve.RoomId,kve.UserId,kve.UserContext,kve.CreateTime,kve.NoUserId,
+				rom.ROOM_NAME,ust.UserName,'' AS NoUserName FROM OADataDb.dbo.KV_Evaluate kve
+				LEFT JOIN PSBaseDb.dbo.RoomTable rom ON rom.ID=kve.RoomId LEFT JOIN PSBaseDb.dbo.UserTable ust
+				ON ust.MemberID=kve.UserId WHERE kve.ProcessId= #{processid,jdbcType=VARCHAR} AND kve.NoUserId IS NULL
+	UNION ALL(
+    SELECT kve.Id,kve.ProcessId,kve.RoomId,kve.UserId,kve.UserContext,kve.CreateTime,kve.NoUserId,rom.ROOM_NAME,
+				ust.UserName,usts.UserName AS NoUserName FROM OADataDb.dbo.KV_Evaluate kve
+				LEFT JOIN PSBaseDb.dbo.RoomTable rom ON rom.ID = kve.RoomId
+				LEFT JOIN PSBaseDb.dbo.UserTable ust ON ust.MemberID = kve.NoUserId
+				LEFT JOIN PSBaseDb.dbo.UserTable usts ON usts.MemberID = kve.UserId WHERE
+				kve.ProcessId =  #{processid,jdbcType=VARCHAR} AND kve.NoUserId IS NOT NULL
+    )
+  </select>
+  <select id="getKvEvaluateByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+    SELECT ke.ProcessId,ke.UserId,us.UserName,wi.UserName as taskName,wi.id AS taskId
+	FROM OADataDb.dbo.KV_Evaluate ke LEFT JOIN
+	PSBaseDb.dbo.UserTable us ON us.MemberID=ke.UserId LEFT JOIN OADataDb.dbo.WHY_Inspect wi ON wi.PIID=ke.ProcessId
+	WHERE  ke.NoUserId IS NULL
+	<if test="roleId!=null and roleId!=95">
+      AND ke.UserId IN (SELECT MemberID FROM PSBaseDb.dbo.UserTable WHERE DepartmentID=#{deptId,jdbcType=INTEGER})
+      <if test="roleId!=93 and roleId!=94">
+        AND (wi.UserId + ',') LIKE '%${loginId},%'
+      </if>
+    </if>
+    <if test="userId!=null">
+      AND ke.UserId=#{userId,jdbcType=INTEGER}
+    </if>
+    GROUP BY ke.ProcessId,ke.UserId,us.UserName,wi.Name,wi.UserName,wi.id
+  </select>
+  <select id="countBySelective" parameterType="com.yaao.ps10.web.model.KvEvaluate" resultType="java.lang.Long">
+    select count(*) from KV_Evaluate where 1=1
+    <if test="processid != null">
+      and ProcessId = #{processid,jdbcType=VARCHAR}
+    </if>
+    <if test="roomid != null">
+      and RoomId = #{roomid,jdbcType=INTEGER}
+    </if>
+  </select>
+</mapper>
